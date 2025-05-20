@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "500289086281",
+    "project_id": "proyecto-bf840",
+    "storage_bucket": "proyecto-bf840.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500289086281:android:3ac460a79bf7a28dd43098",
+        "android_client_info": {
+          "package_name": "com.app.padel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADfePgEY5Vutyr32WeEQvM4Udk-rxMl4o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:500289086281:android:e357ed5ec2580616d43098",
+        "android_client_info": {
+          "package_name": "com.example.PROYECTO"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADfePgEY5Vutyr32WeEQvM4Udk-rxMl4o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
