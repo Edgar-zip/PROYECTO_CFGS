@@ -22,16 +22,16 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_perfil); // Tu layout XML
+        setContentView(R.layout.activity_perfil); // Asegúrate que este XML esté bien
 
-        // Inicializar vistas
+        // Referencias a vistas
         tvNombre = findViewById(R.id.tvNombre);
         tvManoBuena = findViewById(R.id.tvManoBuena);
         tvNivel = findViewById(R.id.tvNivel);
         tvPartidos = findViewById(R.id.tvPartidosJugados);
         tvReservas = findViewById(R.id.tvReservas);
         tvHistorialPartidos = findViewById(R.id.tvHistorialPartidos);
-        imagenPerfil = findViewById(R.id.imgFotoPerfil); // Puedes dejar un drawable por defecto
+        imagenPerfil = findViewById(R.id.imgFotoPerfil);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -53,16 +53,27 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 UserProfile perfil = snapshot.getValue(UserProfile.class);
                 if (perfil != null) {
-                    tvNombre.setText(perfil.nombre);
-                    tvManoBuena.setText("Mano buena: " + perfil.mano_buena);
-                    tvNivel.setText("Nivel: " + perfil.nivel);
+                    tvNombre.setText(perfil.nombre != null ? perfil.nombre : "Sin nombre");
+                    tvManoBuena.setText("Mano buena: " + (perfil.mano_buena != null ? perfil.mano_buena : "-"));
+                    tvNivel.setText("Nivel: " + (perfil.nivel != null ? perfil.nivel : "-"));
                     tvPartidos.setText("Partidos jugados: " + perfil.partidos_jugados);
+
+                    // Si luego agregas imagen de perfil (URL)
+                    /*
+                    if (perfil.foto_url != null && !perfil.foto_url.isEmpty()) {
+                        Glide.with(ProfileActivity.this)
+                             .load(perfil.foto_url)
+                             .into(imagenPerfil);
+                    }
+                    */
+                } else {
+                    Toast.makeText(ProfileActivity.this, "No se encontró el perfil", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ProfileActivity.this, "Error al cargar perfil", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, "Error al cargar perfil: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -75,14 +86,21 @@ public class ProfileActivity extends AppCompatActivity {
                 for (DataSnapshot reservaSnap : snapshot.getChildren()) {
                     String club = reservaSnap.child("club").getValue(String.class);
                     String fecha = reservaSnap.child("fecha").getValue(String.class);
-                    sb.append("- ").append(club).append(" (").append(fecha).append(")\n");
+
+                    if (club != null && fecha != null) {
+                        sb.append("- ").append(club).append(" (").append(fecha).append(")\n");
+                    }
                 }
-                tvReservas.setText(sb.toString());
+                if (sb.length() > 0) {
+                    tvReservas.setText(sb.toString());
+                } else {
+                    tvReservas.setText("Sin reservas programadas.");
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ProfileActivity.this, "Error al cargar reservas", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, "Error al cargar reservas: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -95,14 +113,21 @@ public class ProfileActivity extends AppCompatActivity {
                 for (DataSnapshot partidoSnap : snapshot.getChildren()) {
                     String rival = partidoSnap.child("rival").getValue(String.class);
                     String resultado = partidoSnap.child("resultado").getValue(String.class);
-                    sb.append("- vs ").append(rival).append(" → ").append(resultado).append("\n");
+
+                    if (rival != null && resultado != null) {
+                        sb.append("- vs ").append(rival).append(" → ").append(resultado).append("\n");
+                    }
                 }
-                tvHistorialPartidos.setText(sb.toString());
+                if (sb.length() > 0) {
+                    tvHistorialPartidos.setText(sb.toString());
+                } else {
+                    tvHistorialPartidos.setText("Sin historial disponible.");
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ProfileActivity.this, "Error al cargar historial", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, "Error al cargar historial: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -26,21 +26,25 @@
                 android:background="@drawable/rounded_image"
                 android:contentDescription="Foto de perfil" />
 
+            <!-- Nombre del usuario -->
             <TextView
+                android:id="@+id/tvNombre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Cristian Medina"
+                android:text="Nombre de Usuario"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:textColor="#5F51D2"
                 android:layout_marginTop="8dp" />
 
+            <!-- Datos del perfil: nivel, partidos, mano -->
             <TextView
+                android:id="@+id/tvDatosPerfil"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Nivel: Avanzado\nPartidos Jugados: 30\nMano Preferida: Zurdo"
+                android:text="Nivel: ---\nPartidos Jugados: ---\nMano Preferida: ---"
                 android:textColor="#000000"
                 android:textSize="14sp"
                 android:gravity="center"
@@ -73,19 +77,13 @@
             android:padding="8dp"
             android:layout_marginBottom="8dp">
 
-            <!-- Partido 1 -->
+            <!-- Ejemplo de partidos -->
             <include layout="@layout/item_partido"
                 android:tag="vs. Carlos G. | Ganado - 6/4 6/3 · 14 mayo 2025 · 18:00" />
-
-            <!-- Partido 2 -->
             <include layout="@layout/item_partido"
                 android:tag="vs. Javier R. | Perdido - 3/6 5/7 · 10 mayo 2025 · 17:30" />
-
-            <!-- Partido 3 -->
             <include layout="@layout/item_partido"
                 android:tag="vs. Alex M. | Ganado - 6/2 6/1 · 7 mayo 2025 · 20:00" />
-
-            <!-- Partido 4 -->
             <include layout="@layout/item_partido"
                 android:tag="vs. Pau V. | Empate - 6/4 4/6 · 2 mayo 2025 · 19:00" />
         </LinearLayout>
@@ -106,15 +104,11 @@
             android:padding="8dp"
             android:layout_marginBottom="16dp">
 
-            <!-- Reserva 1 -->
+            <!-- Ejemplo de reservas -->
             <include layout="@layout/item_reserva"
                 android:tag="Pádel Indoor BCN · 19 mayo · 18:00 - 19:30" />
-
-            <!-- Reserva 2 -->
             <include layout="@layout/item_reserva"
                 android:tag="Up Padel Sant Cugat · 22 mayo · 20:00 - 21:30" />
-
-            <!-- Reserva 3 -->
             <include layout="@layout/item_reserva"
                 android:tag="Padelarium Hospitalet · 25 mayo · 17:00 - 18:30" />
         </LinearLayout>
